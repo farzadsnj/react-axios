@@ -10,7 +10,7 @@ const Jokes = () => {
     requestConfig: {
       headers: {
         "Content-Language": "en-US",
-        // "Accept": "text/html",
+        "Accept": "text/html",
       },
     },
   });

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 const useAxios = (configOBJ) => {
   const { axiosInstance, method, url, requestConfig = {} } = configOBJ;
-
   const [response, setResponse] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
