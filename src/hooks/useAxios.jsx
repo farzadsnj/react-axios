@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const useAxios = (configOBJ) => {
-  const { axiosInstance, method, url, requestConfig = {} } = configOBJ;
+const useAxios = (configObj) => {
+  const { axiosInstance, method, url, requestConfig = {} } = configObj;
   const [response, setResponse] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(0)
+
+  const reFetch = () => setReload(prev => prev + 1)
 
   useEffect(() => {
     const controller = new AbortController();
@@ -15,7 +18,7 @@ const useAxios = (configOBJ) => {
           ...requestConfig,
           signal: controller.signal,
         });
-        console.log(res.data);
+        console.log(res);
         setResponse(res.data);
       } catch (err) {
         console.log(err.message);
@@ -28,9 +31,11 @@ const useAxios = (configOBJ) => {
     fetchData();
     //cleanup function for useEffect
     return () => controller.abort();
-  }, []);
 
-  return [response, error, loading];
+    //eslint-disable-next-line
+  }, [reload]);
+
+  return [response, error, loading, reFetch];
 };
 
 export default useAxios;

@@ -3,14 +3,14 @@ import useAxios from "../hooks/useAxios";
 import axios from "../apis/dadJokes";
 
 const Jokes = () => {
-  const [joke, error, loading] = useAxios({
+  const [joke, error, loading, reFetch] = useAxios({
     axiosInstance: axios,
     method: "GET",
     url: "/",
     requestConfig: {
       headers: {
         "Content-Language": "en-US",
-        "Accept": "text/html",
+        // "Accept": "text/html",
       },
     },
   });
@@ -23,6 +23,7 @@ const Jokes = () => {
       {!loading && !error && !joke && (
         <p classname="errMsg">No dad jokes to display</p>
       )}
+      <button onClick={()=> reFetch()}>Get Jokes</button>
     </article>
   );
 };
